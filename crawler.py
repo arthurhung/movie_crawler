@@ -7,6 +7,29 @@ y_movie_url = 'https://movies.yahoo.com.tw/'
 this_week_url = 'movie_thisweek.html'
 movie_info_url = 'movieinfo_main.html/id='
 movie_time_url = 'movietime_result.html/id='
+'''
+TODO
+電影院API使用方法
+1.找出該電影所有電影院id
+2.theater_id找時間id
+3.時間id找到時間
+
+url = 'https://movies.yahoo.com.tw/ajax/pc/get_schedule_by_movie?movie_id=10169&date=2019-08-21&area_id=&theater_id=&datetime=&movie_type_id='
+rep = requests.get(url).content
+src = json.loads(rep).get('view')
+# print(src)
+tree = html.fromstring(src)
+a = tree.xpath('//*[@class="pc-movie-schedule-form"]/*')
+# print(a)
+for i in a:
+    id_list = i.xpath('//@id')
+    for x in id_list:
+        if 'theater_id' in x:
+            print(x)
+----
+a = tree.xpath('//*[@id="theater_id_241"]/li[3]/div/*/@id/')
+a = tree.xpath('//*[@id="71915201"]/@value')
+'''
 
 
 def get_movie_ids():
